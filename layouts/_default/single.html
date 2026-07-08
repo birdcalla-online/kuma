@@ -1,0 +1,14 @@
+<html lang="en">
+    {{ partial "head.html" . }}
+
+    <body>
+        <div
+            class="container
+        {{ if not .IsHome }}{{ .File.BaseFileName }}{{ end }}"
+        >
+            <main>
+                <div>{{ .Content }}</div>
+            </main>
+        </div>
+    </body>
+</html>

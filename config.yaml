@@ -1,0 +1,39 @@
+title: KUMA
+languageCode: en-us
+titleCaseStyle: none
+capitalizeListTitles: false
+pluralizeListTitles: false
+enableGitInfo: true
+pygmentsUseClasses: true
+disableHugoGeneratorInject: true
+
+date:
+  locale: ko_KR
+
+buildFuture: true
+
+uglyURLs: false
+canonifyURLs: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+      hardWraps: true
+
+  highlight:
+    guessSyntax: true
+    lineNumbersInTable: false
+    tabWidth: 4
+
+menu:
+  main:
+    - identifier: kuma
+      name: kuma
+      url: /kuma.html
+      weight: 1
+
+    - identifier: ex-kuma
+      name: ex-kuma
+      url: /ex-kuma.html
+      weight: 2

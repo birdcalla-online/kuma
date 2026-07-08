@@ -1,0 +1,278 @@
+<div class="container kuma">
+    <header>
+        <nav>
+            <a href="#kuma-about">ABOUT</a>
+            <a href="#kuma-exhibition">EXHIBITION</a>
+            <a href="#kuma-resource">RESOURCE</a>
+            <a href="#kuma-news">NEWS</a>
+            <a><span class="lang-button kuma">EN</span></a>
+        </nav>
+        <div>
+            <a href="/" class="title">KUMA</a>
+        </div>
+    </header>
+
+    <section>
+        <div class="about-container" id="kuma-about">
+            {{ $about := site.GetPage "/kuma-about" }}
+
+            <div>
+                <img src="{{ $about.Params.ko.image }}" alt="" />
+            </div>
+
+            <br />
+
+            <div class="section-title">About</div>
+
+            <div>
+                <span data-lang="ko">
+                    {{ $about.Params.ko.description | markdownify }}
+                </span>
+
+                <span data-lang="en">
+                    {{ $about.Params.en.description | markdownify }}
+                </span>
+            </div>
+            <br />
+            <div class="subtitle">대표 소장품</div>
+            <div class="collections-list">
+                <div class="collections-grid">
+                    {{ with site.GetPage "/collections" }} {{ range
+                    .Params.items }}
+                    <div class="collections-item-container">
+                        <div class="collections-item">
+                            <div class="type">{{ .category }}</div>
+
+                            <div class="title">
+                                {{ .artist }}, &lt;{{ .title }}&gt;, {{ .size }}
+                                <img
+                                    class="collections-image"
+                                    loading="lazy"
+                                    src="{{ .image }}"
+                                />
+                            </div>
+
+                            <div class="date">{{ .year }}</div>
+                        </div>
+                    </div>
+                    {{ end }} {{ end }}
+                </div>
+            </div>
+            <br />
+            <div class="subtitle">KUMA 운영위원회</div>
+            <div class="committee-list">
+                <div class="committee-grid">
+                    {{ with site.GetPage "/committee" }} {{ range .Params.items
+                    }}
+                    <div class="committee-item-container">
+                        <div class="committee-item">
+                            <div class="role">{{ .role }}</div>
+
+                            <div class="name">{{ .name }}</div>
+
+                            <div class="affiliation">{{ .affiliation }}</div>
+                        </div>
+                    </div>
+                    {{ end }} {{ end }}
+                </div>
+            </div>
+        </div>
+        <div class="exhibition-container" id="kuma-exhibition">
+            <div class="section-title">Exhibition</div>
+            <div class="mark-container">
+                <span class="mark"><i class="current"></i>Current</span>
+                <span class="mark"><i class="upcoming"></i>Upcoming</span>
+                <span class="mark"><i class="past"></i>Past</span>
+            </div>
+            <div class="exhibition-list">
+                <div class="exhibitions-head">
+                    <div class="type">Type</div>
+                    <div class="title">Exhibition</div>
+                    <!--<div class="date">Date</div>-->
+                </div>
+
+                <div class="exhibitions-grid">
+                    {{ range sort (where site.RegularPages "Section"
+                    "exhibitions") ".Params.ko.startDate" "desc" }}
+                    <div class="exhibitions-item-container">
+                        <div class="exhibitions-item">
+                            <div class="type">
+                                <span data-lang="ko"
+                                    >{{ .Params.ko.type }}</span
+                                >
+                                <span data-lang="en"
+                                    >{{ .Params.en.type }}</span
+                                >
+                            </div>
+
+                            <div class="title">
+                                <details class="exhibition-item">
+                                    <summary>
+                                        {{ $now := now }} {{ $start := time
+                                        .Params.ko.startDate }} {{ $end := time
+                                        .Params.ko.endDate }} {{ if lt $now
+                                        $start }}
+                                        <span class="mark"
+                                            ><i class="upcoming"></i
+                                        ></span>
+                                        {{ else if and (ge $now $start) (le $now
+                                        $end) }}
+                                        <span class="mark"
+                                            ><i class="current"></i
+                                        ></span>
+                                        {{ else }}
+                                        <span class="mark"
+                                            ><i class="past"></i
+                                        ></span>
+                                        {{ end }}
+
+                                        <span data-lang="ko"
+                                            >{{ .Params.ko.title }}</span
+                                        >
+                                        <span data-lang="en"
+                                            >{{ .Params.en.title }}</span
+                                        >
+                                    </summary>
+
+                                    <div class="content">
+                                        {{ with .Params.ko.images }}
+                                        <div class="gallery-slider">
+                                            <button
+                                                class="prev-button"
+                                                type="button"
+                                            >
+                                                ‹
+                                            </button>
+
+                                            <div class="gallery-track">
+                                                {{ range . }}
+                                                <img
+                                                    src="{{ . | relURL }}"
+                                                    loading="lazy"
+                                                    alt=""
+                                                />
+                                                {{ end }}
+                                            </div>
+
+                                            <button
+                                                class="next-button"
+                                                type="button"
+                                            >
+                                                ›
+                                            </button>
+                                        </div>
+                                        {{ end }}
+                                        <div class="date">
+                                            {{ time.Format "2006.01.02"
+                                            .Params.ko.startDate }} – {{
+                                            time.Format "01.02"
+                                            .Params.ko.endDate }}
+                                        </div>
+                                        <div data-lang="ko">
+                                            {{ .Params.ko.description |
+                                            markdownify }}
+                                        </div>
+
+                                        <div data-lang="en">
+                                            {{ .Params.en.description |
+                                            markdownify }}
+                                        </div>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+        <div class="resources-container" id="kuma-resources">
+            <div class="section-title">Resources</div>
+
+            <div class="resources-list">
+                <div class="resources-head">
+                    <div class="type">Type</div>
+                    <div class="title">Title</div>
+                </div>
+
+                <div class="resources-grid">
+                    {{ with site.GetPage "/resources" }} {{ range .Params.items
+                    }}
+                    <div class="resources-item-container">
+                        <div class="resources-item">
+                            <div class="type">{{ .type }}</div>
+
+                            <div class="title">
+                                <a
+                                    href="{{ .link }}"
+                                    onclick="
+                                        let w = window.innerWidth * 0.5;
+                                        let h = window.innerHeight * 0.8;
+                                        window.open(
+                                            this.href,
+                                            'pdfwindow',
+                                            `width=${w},height=${h}`,
+                                        );
+                                        return false;
+                                    "
+                                >
+                                    {{ .title }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }} {{ end }}
+                </div>
+            </div>
+        </div>
+        <div class="news-container" id="kuma-news">
+            <div class="section-title">News</div>
+
+            <div class="news-list">
+                <div class="news-head">
+                    <div class="type">Type</div>
+                    <div class="title">Title</div>
+                </div>
+
+                <div class="news-grid">
+                    <div class="news-item-container">
+                        <div class="news-item">
+                            {{ range where site.RegularPages "Section" "news" }}
+
+                            <div class="type">{{ .Params.type }}</div>
+
+                            <div class="title">
+                                <a
+                                    href="{{ .Params.link }}"
+                                    onclick="
+                                        let w = window.innerWidth * 0.5;
+                                        let h = window.innerHeight * 0.8;
+                                        window.open(
+                                            this.href,
+                                            'pdfwindow',
+                                            `width=${w},height=${h}`,
+                                        );
+                                        return false;
+                                    "
+                                >
+                                    {{ .Params.title }}
+                                </a>
+                            </div>
+
+                            {{ end }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-container">
+            <div class="subtitle">Contact</div>
+            <div>
+                <p>대한민국 경기도 의왕시 계원대학로 66</p>
+                <p><a href="mailto:kuma@kaywon.ac.kr">kuma@kaywon.ac.kr</a></p>
+                <br />
+                <img class="full" src="/assets/kuma02.jpg" />
+            </div>
+        </div>
+    </section>
+</div>

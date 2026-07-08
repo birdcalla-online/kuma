@@ -1,0 +1,197 @@
+<div class="container ex-kuma">
+    <header>
+        <div>
+            <a href="/" class="title">EX-KUMA</a>
+        </div>
+        <nav>
+            <a href="#exkuma-about">ABOUT</a>
+            <a href="#exkuma-unsettled">UNSETTLED</a>
+            <a href="#exkuma-workshop">WORKSHOP</a>
+            <a href="#exkuma-news">NEWS</a>
+            <a><span class="lang-button ex-kuma">EN</span></a>
+        </nav>
+    </header>
+
+    <section>
+        <div class="about-container" id="exkuma-about">
+            {{ $about := site.GetPage "/exkuma-about" }}
+            <div>
+                <img src="{{ $about.Params.ko.image }}" alt="" />
+            </div>
+
+            <br />
+
+            <div>
+                <div class="section-title">About</div>
+
+                <div data-lang="ko">
+                    {{ $about.Params.ko.description | markdownify }}
+                </div>
+
+                <div data-lang="en">
+                    {{ $about.Params.en.description | markdownify }}
+                </div>
+            </div>
+        </div>
+        <div class="workshop-container" id="exkuma-workshop">
+            <div class="section-title">Workshop</div>
+
+            <div class="mark-container">
+                <span class="mark"><i class="current"></i>Current</span>
+                <span class="mark"><i class="upcoming"></i>Upcoming</span>
+                <span class="mark"><i class="past"></i>Past</span>
+            </div>
+
+            <div class="workshop-list">
+                <div class="workshops-head">
+                    <div class="type">Type</div>
+                    <div class="title">Workshop</div>
+                </div>
+
+                <div class="workshops-grid">
+                    {{ range sort (where site.RegularPages "Section"
+                    "workshops") ".Params.ko.startDate" "desc" }}
+
+                    <div class="workshops-item-container">
+                        <div class="workshops-item">
+                            <div class="type">
+                                <span data-lang="ko"
+                                    >{{ .Params.ko.type }}</span
+                                >
+                                <span data-lang="en"
+                                    >{{ .Params.en.type }}</span
+                                >
+                            </div>
+
+                            <div class="title">
+                                <details class="workshop-item">
+                                    <summary>
+                                        {{ $now := now }} {{ $start := time
+                                        .Params.ko.startDate }} {{ $end := time
+                                        .Params.ko.endDate }} {{ if lt $now
+                                        $start }}
+                                        <span class="mark"
+                                            ><i class="upcoming"></i
+                                        ></span>
+                                        {{ else if and (ge $now $start) (le $now
+                                        $end) }}
+                                        <span class="mark"
+                                            ><i class="current"></i
+                                        ></span>
+                                        {{ else }}
+                                        <span class="mark"
+                                            ><i class="past"></i
+                                        ></span>
+                                        {{ end }}
+
+                                        <span data-lang="ko"
+                                            >{{ .Params.ko.title }}</span
+                                        >
+                                        <span data-lang="en"
+                                            >{{ .Params.en.title }}</span
+                                        >
+                                    </summary>
+
+                                    <div class="content">
+                                        <div class="image">
+                                            {{ with .Params.ko.image }}
+                                            <img
+                                                src="{{ . | relURL }}"
+                                                loading="lazy"
+                                                alt=""
+                                            />
+                                            {{ end }}
+                                        </div>
+
+                                        <div class="date">
+                                            {{ time.Format "2006.01.02" (time
+                                            .Params.ko.startDate) }}
+                                            <!--–
+                                                {{ time.Format "2006.01.02"
+                                                (time .Params.ko.endDate) }}-->
+                                        </div>
+                                        <div data-lang="ko">
+                                            <div class="desription">
+                                                {{ .Params.ko.description |
+                                                markdownify }}
+                                            </div>
+                                            <br />
+                                            {{ with .Params.ko.participants }}
+                                            <div class="participants">
+                                                <p>참여</p>
+                                                {{ delimit . ", " }}
+                                            </div>
+                                            {{ end }}
+                                        </div>
+
+                                        <div data-lang="en">
+                                            <div class="desription">
+                                                {{ .Params.en.description |
+                                                markdownify }}
+                                            </div>
+                                            <br />
+                                            {{ with .Params.en.participants }}
+                                            <div class="participants">
+                                                <p>Participants</p>
+                                                {{ delimit . ", " }}
+                                            </div>
+                                            {{ end }}
+                                        </div>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ end }}
+                </div>
+            </div>
+        </div>
+        <div class="news-container" id="exkuma-news">
+            <div class="section-title">News</div>
+
+            <div class="news-list">
+                <div class="news-head">
+                    <div class="type">Type</div>
+                    <div class="title">Title</div>
+                </div>
+
+                <div class="news-grid">
+                    <div class="news-item-container">
+                        <div class="news-item">
+                            {{ range where site.RegularPages "Section"
+                            "exkuma-news" }}
+
+                            <div class="type">{{ .Params.type }}</div>
+
+                            <div class="title">
+                                <a
+                                    href="{{ .Params.link }}"
+                                    onclick="
+                                        let w = window.innerWidth * 0.5;
+                                        let h = window.innerHeight * 0.8;
+                                        window.open(
+                                            this.href,
+                                            'pdfwindow',
+                                            `width=${w},height=${h}`,
+                                        );
+                                        return false;
+                                    "
+                                >
+                                    {{ .Params.title }}
+                                </a>
+                            </div>
+
+                            {{ end }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="logos-container">
+            <img class="logo" src="/assets/ofm.png" alt="OFM" />
+            <img class="logo" src="/assets/boisbuchet.png" alt="Boisbuchet" />
+        </div>
+        <img class="full" src="/assets/exkuma02.jpg" alt="EX-KUMA" />
+    </section>
+</div>

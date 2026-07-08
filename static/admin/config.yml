@@ -1,0 +1,303 @@
+backend:
+  name: github
+  repo: birdcalla-online/kuma
+  branch: main
+
+# backend:
+#   name: test-repo
+
+app_title: KUMA
+
+logo:
+  src: ../assets/logo.png
+  show_in_header: true
+
+i18n:
+  structure: single_file
+  locales: [ko, en]
+  default_locale: ko
+
+media_folder: /static/assets
+public_folder: /assets
+
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 80
+          width: 1200
+          height: 1200
+        svg:
+          optimize: true
+
+collections:
+  - divider: true
+
+  - name: kuma-about
+    label: KUMA About
+    i18n: true
+    files:
+      - name: kuma-about
+        label: KUMA About
+        file: content/kuma-about.md
+        i18n: true
+        fields:
+          - label: 사진
+            name: image
+            widget: image
+            i18n: duplicate
+            required: true
+
+          - label: 소개
+            name: description
+            widget: text
+            i18n: true
+            required: true
+
+  - label: KUMA 운영위원회
+    name: committee
+    files:
+      - label: 운영위원회
+        name: committee
+        file: content/committee.md
+        fields:
+          - label: 운영위원 목록
+            name: items
+            widget: list
+            summary: "{{fields.role}} · {{fields.name}}"
+            fields:
+              - { label: 직책, name: role, widget: string }
+              - { label: 이름, name: name, widget: string }
+              - { label: 소속, name: affiliation, widget: string }
+
+  - label: KUMA 대표 소장품
+    name: collections
+    files:
+      - label: 대표 소장품
+        name: collections
+        file: content/collections.md
+        fields:
+          - label: 작품 목록
+            name: items
+            widget: list
+            summary: "{{fields.artist}} · {{fields.title}}"
+            fields:
+              - { label: 사진, name: image, widget: image }
+              - { label: 분류, name: category, widget: string }
+              - { label: 작가, name: artist, widget: string }
+              - { label: 작품명, name: title, widget: string }
+              - { label: 규격, name: size, widget: string }
+              - { label: 제작연도, name: year, widget: number }
+
+  - name: exhibitions
+    label: KUMA Exhibitions
+    folder: /content/exhibitions
+    create: true
+    media_folder: "{{media_folder}}/exhibitions/{{slug}}"
+    public_folder: "{{public_folder}}/exhibitions/{{slug}}"
+    i18n: true
+    fields:
+      - name: title
+        label: 제목
+        widget: string
+        i18n: true
+        required: true
+
+      - name: type
+        label: 유형
+        widget: string
+        i18n: true
+        required: true
+
+      - name: startDate
+        label: 시작일
+        widget: datetime
+        type: date
+        i18n: duplicate
+        required: true
+
+      - name: endDate
+        label: 종료일
+        widget: datetime
+        type: date
+        i18n: duplicate
+        required: true
+
+      - name: description
+        label: 설명
+        widget: text
+        i18n: true
+        required: true
+
+      - name: images
+        label: 이미지
+        widget: file
+        i18n: duplicate
+        multiple: true
+        required: false
+
+  - label: KUMA Resources
+    name: resources
+    files:
+      - label: Resources
+        name: resources
+        file: content/resources.md
+        fields:
+          - label: 자료 목록
+            name: items
+            widget: list
+            summary: "{{fields.type}} · {{fields.title}}"
+            fields:
+              - label: 형식
+                name: type
+                widget: string
+                hint: PDF 등
+
+              - label: 제목
+                name: title
+                widget: string
+                hint: 대관신청서 등
+
+              - label: 링크
+                name: link
+                widget: string
+                hint: Google Drive 공유 링크 등
+
+  - name: kuma-news
+    label: KUMA News
+    folder: /content/kuma-news
+    required: false
+    media_folder: "{{media_folder}}/kuma-news/{{slug}}"
+    public_folder: "{{public_folder}}/kuma-news/{{slug}}"
+    fields:
+      - name: type
+        label: 형식
+        widget: string
+        hint: 보도자료 등
+
+      - name: title
+        label: 제목
+        widget: string
+
+      - name: link
+        label: 링크
+        widget: string
+        hint: https:// 로 시작하는 URL
+
+  - divider: true
+
+  - name: exkuma-about
+    label: EX-KUMA About
+    i18n: true
+    files:
+      - name: exkuma-about
+        label: EX-KUMA About
+        file: content/exkuma-about.md
+        i18n: true
+        fields:
+          - label: 사진
+            name: image
+            widget: image
+            i18n: duplicate
+            required: true
+
+          - label: 소개
+            name: description
+            widget: text
+            i18n: true
+            required: true
+            hint: Unsettled 란?
+
+  - name: exkuma-unsettled
+    label: EX-KUMA Unsettled
+    i18n: true
+    files:
+      - name: exkuma-unsettled
+        label: EX-KUMA Unsettled
+        file: content/exkuma-unsettled.md
+        i18n: true
+        fields:
+          - label: 소개
+            name: description
+            widget: text
+            i18n: true
+            required: true
+
+  - name: exkuma-workshops
+    label: EXKUMA Workshops
+    folder: /content/workshops
+    create: true
+    media_folder: "{{media_folder}}/workshops/{{slug}}"
+    public_folder: "{{public_folder}}/workshops/{{slug}}"
+    i18n: true
+    fields:
+      - name: title
+        label: 제목
+        widget: string
+        i18n: true
+        required: true
+
+      - name: type
+        label: 유형
+        widget: string
+        i18n: true
+        required: false
+
+      - name: startDate
+        label: 시작일
+        widget: datetime
+        type: date
+        i18n: duplicate
+        required: true
+
+      - name: endDate
+        label: 종료일
+        widget: datetime
+        type: date
+        i18n: duplicate
+        required: true
+
+      - name: image
+        label: 이미지
+        widget: image
+        i18n: duplicate
+        required: true
+
+      - name: description
+        label: 설명
+        widget: markdown
+        i18n: true
+        required: true
+
+      - name: participants
+        label: 참여자
+        widget: list
+        i18n: true
+        required: true
+        field:
+          name: name
+          label: 이름
+          widget: string
+
+  - name: exkuma-news
+    label: EX-KUMA News
+    folder: /content/exkuma-news
+    required: false
+    media_folder: "{{media_folder}}/exkuma-news/{{slug}}"
+    public_folder: "{{public_folder}}/exkuma-news/{{slug}}"
+    fields:
+      - name: type
+        label: 형식
+        widget: string
+        hint: 보도자료 등
+
+      - name: title
+        label: 제목
+        widget: string
+
+      - name: link
+        label: 링크
+        widget: string
+        hint: https:// 로 시작하는 URL
