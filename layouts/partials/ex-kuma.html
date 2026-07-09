@@ -11,7 +11,16 @@
             <a><span class="lang-button ex-kuma">EN</span></a>
         </nav>
     </header>
-
+    <div class="sticker" id="sticker">
+		<div id="kuma-modal">
+			<p><span class="ml-en">
+				UNSETTLED<br>
+				INTERNATIONAL<br>
+				WORKSHOP<br>
+				PROGRAMME OF KUMA
+			</span></p>
+		</div>
+	</div>
     <section>
         <div class="about-container" id="exkuma-about">
             {{ $about := site.GetPage "/exkuma-about" }}
@@ -206,6 +215,14 @@
             <img class="logo" src="/assets/ofm.png" alt="OFM" />
             <img class="logo" src="/assets/boisbuchet.png" alt="Boisbuchet" />
         </div>
-        <img class="full" src="/assets/exkuma02.jpg" alt="EX-KUMA" />
+        <div class="clock" id="local-clock">
+          <div class="clock-face">
+            <div class="hand hour-hand"></div>
+            <div class="hand minute-hand"></div>
+            <div class="hand second-hand"></div>
+            <div class="clock-center"></div>
+          </div>
+        </div>
     </section>
+    <img class="bottom-img" src="/assets/exkuma02.jpg" alt="EX-KUMA" />
 </div>
