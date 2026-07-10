@@ -1,13 +1,7 @@
 ---
 ko:
-  title: ''
-  description: |-
-    안녕하세요 
-
-    나랏말 싸미 듕긱에 달라
-
-    그렇게 생각해도 모르겠네요
-    하하하핳
+  title: 제목입니다.
+  description: 스티커 내용입니다.
 en:
   title: ''
   description: ''
