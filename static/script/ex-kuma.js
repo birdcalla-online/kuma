@@ -24,6 +24,8 @@ const colorThemes = [
 document.addEventListener("DOMContentLoaded", () => {
   const exKumaLangButton = document.querySelector(".lang-button.ex-kuma");
   const rightContainer = document.querySelector(".container.ex-kuma");
+  const unsettledYear = document.querySelector(".unsettled-year");
+  unsettledYear.textContent += " " + new Date().getFullYear();
 
   exKumaLangButton.addEventListener("click", () => {
     const now = rightContainer.dataset.language || "ko";

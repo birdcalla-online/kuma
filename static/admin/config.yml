@@ -59,38 +59,83 @@ collections:
 
   - label: KUMA 운영위원회
     name: committee
+    i18n: true
+
     files:
       - label: 운영위원회
         name: committee
         file: content/committee.md
+        i18n: true
+
         fields:
           - label: 운영위원 목록
             name: items
             widget: list
-            summary: "{{fields.role}} · {{fields.name}}"
+            i18n: true
+
             fields:
-              - { label: 직책, name: role, widget: string }
-              - { label: 이름, name: name, widget: string }
-              - { label: 소속, name: affiliation, widget: string }
+              - label: 직책
+                name: role
+                widget: string
+                i18n: true
+
+              - label: 이름
+                name: name
+                widget: string
+                i18n: true
+
+              - label: 소속
+                name: affiliation
+                widget: string
+                i18n: true
 
   - label: KUMA 대표 소장품
     name: collections
+    i18n: true
+
     files:
       - label: 대표 소장품
         name: collections
         file: content/collections.md
+        i18n: true
+
         fields:
           - label: 작품 목록
             name: items
             widget: list
+            i18n: true
             summary: "{{fields.artist}} · {{fields.title}}"
+
             fields:
-              - { label: 사진, name: image, widget: image }
-              - { label: 분류, name: category, widget: string }
-              - { label: 작가, name: artist, widget: string }
-              - { label: 작품명, name: title, widget: string }
-              - { label: 규격, name: size, widget: string }
-              - { label: 제작연도, name: year, widget: number }
+              - label: 사진
+                name: image
+                widget: image
+                i18n: duplicate
+
+              - label: 분류
+                name: category
+                widget: string
+                i18n: true
+
+              - label: 작가
+                name: artist
+                widget: string
+                i18n: true
+
+              - label: 작품명
+                name: title
+                widget: string
+                i18n: true
+
+              - label: 규격
+                name: size
+                widget: string
+                i18n: true
+
+              - label: 제작연도
+                name: year
+                widget: number
+                i18n: duplicate
 
   - name: exhibitions
     label: KUMA Exhibitions
@@ -128,43 +173,60 @@ collections:
 
       - name: description
         label: 설명
-        widget: text
+        widget: markdown
         i18n: true
         required: true
 
       - name: images
-        label: 이미지
-        widget: file
+        label: 사진
+        widget: list
         i18n: duplicate
-        multiple: true
         required: false
+        fields:
+          - name: image
+            label: 이미지
+            widget: image
+
+          - name: credit
+            label: 크레딧
+            widget: string
+            required: false
 
   - label: KUMA Resources
     name: resources
+    i18n: true
+
     files:
       - label: Resources
         name: resources
         file: content/resources.md
+        i18n: true
+
         fields:
           - label: 자료 목록
             name: items
             widget: list
+            i18n: true
             summary: "{{fields.type}} · {{fields.title}}"
+
             fields:
               - label: 형식
                 name: type
                 widget: string
                 hint: PDF 등
+                i18n: true
 
               - label: 제목
                 name: title
                 widget: string
                 hint: 대관신청서 등
+                i18n: true
 
               - label: 링크
                 name: link
                 widget: string
                 hint: Google Drive 공유 링크 등
+                i18n: duplicate
 
   - name: kuma-news
     label: KUMA News
@@ -172,20 +234,25 @@ collections:
     required: false
     media_folder: "{{media_folder}}/kuma-news/{{slug}}"
     public_folder: "{{public_folder}}/kuma-news/{{slug}}"
+    i18n: true
+
     fields:
       - name: type
         label: 형식
         widget: string
         hint: 보도자료 등
+        i18n: true
 
       - name: title
         label: 제목
         widget: string
+        i18n: true
 
       - name: link
         label: 링크
         widget: string
         hint: https:// 로 시작하는 URL
+        i18n: duplicate
 
   - name: kuma-partners
     label: KUMA 협력사
@@ -264,6 +331,12 @@ collections:
             i18n: true
             required: true
 
+          - label: 포스터
+            name: poster
+            widget: image
+            i18n: duplicate
+            required: false
+
   - name: exkuma-workshops
     label: EX-KUMA Workshops
     folder: /content/workshops
@@ -272,36 +345,20 @@ collections:
     public_folder: "{{public_folder}}/workshops/{{slug}}"
     i18n: true
     fields:
+      - name: category
+        label: 카테고리
+        widget: list
+        i18n: duplicate
+        required: false
+        field:
+          label: 카테고리
+          name: category
+          widget: string
+
       - name: title
         label: 제목
         widget: string
         i18n: true
-        required: true
-
-      - name: type
-        label: 유형
-        widget: string
-        i18n: true
-        required: false
-
-      - name: startDate
-        label: 시작일
-        widget: datetime
-        type: date
-        i18n: duplicate
-        required: true
-
-      - name: endDate
-        label: 종료일
-        widget: datetime
-        type: date
-        i18n: duplicate
-        required: true
-
-      - name: image
-        label: 이미지
-        widget: image
-        i18n: duplicate
         required: true
 
       - name: description
@@ -310,11 +367,80 @@ collections:
         i18n: true
         required: true
 
-      - name: participants
-        label: 참여자
+      - name: startDate
+        label: 시작 날짜
+        widget: datetime
+        type: date
+        i18n: duplicate
+        required: true
+
+      - name: endDate
+        label: 종료 날짜
+        widget: datetime
+        type: date
+        i18n: duplicate
+        required: true
+
+      - name: startTime
+        label: 시작 시간
+        widget: datetime
+        type: time
+        required: false
+
+      - name: endTime
+        label: 종료 시간
+        widget: datetime
+        type: time
+        required: false
+
+      - name: master
+        label: 마스터
         widget: string
         i18n: true
-        required: true
+        required: false
+
+      - name: capacity
+        label: 모집 인원
+        widget: number
+        value_type: int
+        min: 0
+        i18n: duplicate
+        required: false
+
+      - name: participants
+        label: 참여 인원
+        widget: number
+        value_type: int
+        min: 0
+        i18n: duplicate
+        required: false
+
+      - name: applicationLink
+        label: 신청 링크
+        widget: string
+        i18n: duplicate
+        required: false
+
+      - name: note
+        label: 특이사항
+        widget: string
+        i18n: true
+        required: false
+
+      - name: images
+        label: 사진
+        widget: list
+        i18n: duplicate
+        required: false
+        fields:
+          - name: image
+            label: 이미지
+            widget: image
+
+          - name: credit
+            label: 크레딧
+            widget: string
+            required: false
 
   - name: exkuma-news
     label: EX-KUMA News
@@ -322,20 +448,24 @@ collections:
     required: false
     media_folder: "{{media_folder}}/exkuma-news/{{slug}}"
     public_folder: "{{public_folder}}/exkuma-news/{{slug}}"
+    i18n: true
     fields:
       - name: type
         label: 형식
         widget: string
+        i18n: true
         hint: 보도자료 등
 
       - name: title
         label: 제목
         widget: string
+        i18n: true
 
       - name: link
         label: 링크
         widget: string
         hint: https:// 로 시작하는 URL
+        i18n: duplicate
 
   - name: exkuma-partners
     label: EX-KUMA 협력사

@@ -31,11 +31,8 @@ const setClock = (clockId, date) => {
 
 const updateClocks = () => {
   const now = new Date();
-
-  // 방문자(클라이언트) 로컬 시간
   setClock("local-clock", now);
 
-  // 한국 시간 (Asia/Seoul)
   const koreaNow = new Date(
     now.toLocaleString("en-US", {
       timeZone: "Asia/Seoul",
@@ -48,33 +45,52 @@ const randomizeClockPosition = () => {
   const clock = document.getElementById("local-clock");
   if (!clock) return;
 
-  const margin = 90;
+  const baseMargin = 50;
+  const clockRadius = 38;
+  const safetyMargin = baseMargin + clockRadius;
 
   const isSplitLayout = !!clock.closest("main .container.ex-kuma");
+  const isMobile = window.innerWidth <= 580;
 
   let left, right;
 
-  if (isSplitLayout) {
-    left = window.innerWidth / 2 + margin;
-    right = window.innerWidth - margin;
+  if (isMobile) {
+    left = safetyMargin;
+    right = window.innerWidth - safetyMargin;
+  } else if (isSplitLayout) {
+    left = window.innerWidth / 2 + safetyMargin;
+    right = window.innerWidth - safetyMargin;
   } else {
-    left = margin;
-    right = window.innerWidth - margin;
+    left = safetyMargin;
+    right = window.innerWidth - safetyMargin;
+  }
+
+  if (left >= right) {
+    left = safetyMargin;
+    right = window.innerWidth - safetyMargin;
   }
 
   const x = Math.random() * (right - left) + left;
-  const y = Math.random() * (window.innerHeight - margin * 2) + margin;
+  const y = Math.random() * (window.innerHeight - safetyMargin * 2) + safetyMargin;
 
   clock.style.left = `${x}px`;
   clock.style.top = `${y}px`;
-  clock.style.transform = "none";
+  clock.style.transform = "translate(-50%, -50%)";
+  clock.style.visibility = "visible";
 };
 
 let resizeTimer;
+let lastWidth = window.innerWidth;
 
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(randomizeClockPosition, 200);
+
+  resizeTimer = setTimeout(() => {
+    if (window.innerWidth !== lastWidth) {
+      lastWidth = window.innerWidth;
+      randomizeClockPosition();
+    }
+  }, 200);
 });
 
 document.addEventListener("DOMContentLoaded", () => {

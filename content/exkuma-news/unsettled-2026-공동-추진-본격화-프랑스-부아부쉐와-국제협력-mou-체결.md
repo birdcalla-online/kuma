@@ -1,5 +1,11 @@
 ---
-type: 보도자료
-title: UNSETTLED 2026 공동 추진 본격화, 프랑스 부아부쉐와 국제협력 MOU 체결
-link: https://suzinkw.com/kuma-beta/pdf/boisbuchet-mou.pdf
+ko:
+  type: 보도자료
+  title: UNSETTLED 2026 공동 추진 본격화, 프랑스 부아부쉐와 국제협력 MOU 체결
+  link: https://suzinkw.com/kuma-beta/pdf/boisbuchet-mou.pdf
+
+en:
+  type: Press Release
+  title: "UNSETTLED 2026 Officially Launches with International Cooperation MOU Signed with Boisbuchet, France"
+  link: https://suzinkw.com/kuma-beta/pdf/boisbuchet-mou.pdf
 ---

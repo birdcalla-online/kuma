@@ -1,0 +1,45 @@
+<div class="container kuma">
+    {{ partial "clock.html" (dict
+        "id" "korea-clock"
+        "class" "clock-left"
+    ) }}
+    <header>
+        <nav>
+            <a href="#kuma-about">ABOUT</a>
+            <a href="#kuma-exhibition">EXHIBITION</a>
+            <a href="#kuma-resource">RESOURCE</a>
+            <a href="#kuma-news">NEWS</a>
+            <a><span class="lang-button kuma">EN</span></a>
+        </nav>
+        <div>
+            <a href="/kuma" class="title">KUMA</a>
+        </div>
+    </header>
+
+    <section>
+        {{ partial "kuma/about.html" . }}
+
+        {{ partial "kuma/exhibition.html" . }}
+
+        {{ partial "kuma/resources.html" . }}
+
+        {{ partial "news.html" (dict
+            "id" "kuma-news"
+            "section" "kuma-news"
+        ) }}
+        <div class="contact-container">
+            <div class="subtitle">Contact</div>
+            <div>
+                <p>
+                    <span data-lang="ko">대한민국 경기도 의왕시 계원대학로 66</span>
+                    <span data-lang="en">66, Gyewondaehak-ro, Uiwang-si, Gyeonggi-do, Republic of Korea</span>
+                </p>
+                <p><a href="mailto:kuma@kaywon.ac.kr">kuma@kaywon.ac.kr</a></p>
+            </div>
+        </div>
+        {{ partial "partners.html" (dict "page" "/kuma-partners") }}
+    </section>
+    <div class="bottom-img-container">
+        <img class="bottom-img" src="/assets/kuma02.jpg" />
+    </div>
+</div>

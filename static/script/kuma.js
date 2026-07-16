@@ -30,24 +30,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll(".gallery-slider").forEach((slider) => {
     const track = slider.querySelector(".gallery-track");
-    const images = [...track.querySelectorAll("img")];
+    const slides = [...track.querySelectorAll(".image-container")];
 
-    if (images.length <= 1) {
-      slider.querySelector(".prev-button").classList.add("hidden");
-      slider.querySelector(".next-button").classList.add("hidden");
+    const prev = slider.querySelector(".prev-button");
+    const next = slider.querySelector(".next-button");
+
+    if (slides.length <= 1) {
+      prev.classList.add("hidden");
+      next.classList.add("hidden");
       return;
     }
 
     let i = 0;
 
-    const prev = slider.querySelector(".prev-button");
-    const next = slider.querySelector(".next-button");
-
     const update = () => {
       track.style.transform = `translateX(-${i * 100}%)`;
 
       prev.classList.toggle("hidden", i === 0);
-      next.classList.toggle("hidden", i === images.length - 1);
+      next.classList.toggle("hidden", i === slides.length - 1);
     };
 
     prev.addEventListener("click", () => {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     next.addEventListener("click", () => {
-      if (i < images.length - 1) {
+      if (i < slides.length - 1) {
         i++;
         update();
       }

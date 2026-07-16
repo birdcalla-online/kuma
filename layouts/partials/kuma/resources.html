@@ -1,18 +1,21 @@
-<div class="news-container" id="{{ .id }}">
-    <div class="section-title">News</div>
-    <div class="news-list">
-        <div class="news-head">
+<div class="resources-container" id="kuma-resources">
+    <div class="section-title">Resources</div>
+
+    {{ $resources := site.GetPage "/resources" }}
+
+    <div class="resources-list">
+        <div class="resources-head">
             <div class="type">Type</div>
             <div class="title">Title</div>
         </div>
-        <div class="news-grid">
+        <div class="resources-grid">
             <div data-lang="ko">
-                {{ range where site.RegularPages "Section" "kuma-news" }}
-                <div class="news-item-container">
-                    <div class="news-item">
-                        <div class="type">{{ .Params.ko.type }}</div>
+                {{ range $resources.Params.ko.items }}
+                <div class="resources-item-container">
+                    <div class="resources-item">
+                        <div class="type">{{ .type }}</div>
                         <div class="title">
-                            <a href="{{ .Params.ko.link }}"
+                            <a  href="{{ .link }}"
                                 onclick="
                                     let w = window.innerWidth * 0.5;
                                     let h = window.innerHeight * 0.8;
@@ -22,7 +25,7 @@
                                         `width=${w},height=${h}`,
                                     );
                                     return false;">
-                                {{ .Params.ko.title }}
+                                {{ .title }}
                             </a>
                         </div>
                     </div>
@@ -30,12 +33,12 @@
                 {{ end }}
             </div>
             <div data-lang="en">
-                {{ range where site.RegularPages "Section" "kuma-news" }}
-                <div class="news-item-container">
-                    <div class="news-item">
-                        <div class="type">{{ .Params.en.type }}</div>
+                {{ range $resources.Params.en.items }}
+                <div class="resources-item-container">
+                    <div class="resources-item">
+                        <div class="type">{{ .type }}</div>
                         <div class="title">
-                            <a href="{{ .Params.en.link }}"
+                            <a href="{{ .link }}"
                                 onclick="
                                     let w = window.innerWidth * 0.5;
                                     let h = window.innerHeight * 0.8;
@@ -45,7 +48,7 @@
                                         `width=${w},height=${h}`,
                                     );
                                     return false;">
-                                {{ .Params.en.title }}
+                                {{ .title }}
                             </a>
                         </div>
                     </div>
