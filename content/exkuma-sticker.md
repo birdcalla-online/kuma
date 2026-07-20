@@ -1,6 +1,6 @@
 ---
 ko:
-  description: ''
+  description: dd
 en:
   description: ''
 ---
